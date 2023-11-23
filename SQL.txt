@@ -1,0 +1,30 @@
+Q1) The query achieves the goal of providing a report that shows how many patients have each medication and indicates whether the medication is active or expired.
+
+>> MySQL
+
+SELECT COUNT(med.doses) AS dose_count,
+       med.doses,
+       patient.name,
+       CASE WHEN med.expiration_date > NOW() THEN 'Active' ELSE 'Expired' END AS status
+FROM medication med
+JOIN medication_prescribed medpre ON med.medication_id = medpre.medication
+JOIN patient patient ON patient.patient_id = medpre.patient_id
+GROUP BY patient.name;
+
+
+Q2)  based on the provided conditions, the query meets the requirements of generating a report containing Doctor Information, Department, and Doctor Patient related to the Doctor
+
+
+SELECT WORKER.NAME AS Doctor_Name,
+       Worker.Phone_Number,
+       Worker.Gender,
+       Worker.Salary,
+       Pat.Name
+FROM doctor
+JOIN doctor_patient dp ON doctor.doctor_id = dp.doctor_id
+JOIN department dept ON doctor.department_id = dept.department_id
+JOIN Patient pat ON pat.patient_id = dp.patient_id
+JOIN bill ON bill.bill_id = pat.bill_id
+JOIN WORKER ON WORKER.WORKER_ID = DOCTOR.D_WORKER_ID
+WHERE pat.age > 12 AND bill.time_admitted NOT BETWEEN '2022-01-01' AND '2022-12-31'
+ORDER BY WORKER.NAME DESC, Pat.Name ASC;
