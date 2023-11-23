@@ -17,7 +17,7 @@ This application is a simple Flask-based QR code generator that also exports the
 1. **Clone the repository:**
 
     ```bash
-    git clone <repository_url>
+    git clone https://github.com/hamadbd/Nixpend.git
     ```
 
 2. **Navigate to the project directory:**
